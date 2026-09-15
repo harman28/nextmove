@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin &middot; Next Move</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,500&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+<body>
+  <header class="admin-topbar">
+    <span class="wordmark">Next Move <span class="muted" style="font-style:normal; font-size:0.9rem;">admin</span></span>
+    <nav class="admin-tabs">
+      <a href="#profile">Profile</a>
+      <a href="#packages">Packages</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#faqs">FAQ</a>
+      <a href="#inquiries">Inquiries{% if unread %} <span class="badge">{{ unread }}</span>{% endif %}</a>
+      <a href="{{ url_for('home') }}" target="_blank">View site &rarr;</a>
+    </nav>
+    <form method="post" action="{{ url_for('admin_logout') }}">
+      <button class="btn ghost" type="submit">Log out</button>
+    </form>
+  </header>
+
+  <div class="wrap admin-wrap">
+
+  <section class="admin-section" id="profile">
+    <h2>Profile &amp; site text</h2>
+    <p class="intro">This is the copy that appears across the site. Anything in [brackets] is a placeholder &mdash; replace it with your own words.</p>
+
+    <div class="admin-photo-row">
+      {% if settings.photo_filename %}
+        <img class="avatar" src="{{ url_for('uploads', filename=settings.photo_filename) }}?v={{ settings.photo_version }}" alt="">
+      {% else %}
+        <div class="avatar-placeholder">{{ settings.coach_name[0] }}</div>
+      {% endif %}
+      <form method="post" action="{{ url_for('admin_photo') }}" enctype="multipart/form-data">
+        <label for="photo">Upload a photo</label>
+        <input id="photo" name="photo" type="file" accept=".jpg,.jpeg,.png,.webp">
+        <button class="btn ghost" type="submit">Upload</button>
+      </form>
+    </div>
+
+    <form method="post" action="{{ url_for('admin_settings') }}" class="admin-form">
+      <div>
+        <label for="coach_name">Name</label>
+        <input id="coach_name" name="coach_name" value="{{ settings.coach_name }}">
+      </div>
+      <div>
+        <label for="tagline">Tagline (shown at the top of the homepage)</label>
+        <input id="tagline" name="tagline" value="{{ settings.tagline }}">
+      </div>
+      <div>
+        <label for="bio_text">Bio / &ldquo;why me&rdquo;</label>
+        <textarea id="bio_text" name="bio_text" rows="5">{{ settings.bio_text }}</textarea>
+      </div>
+      <div>
+        <label for="adults_intro">Intro for the adults page</label>
+        <textarea id="adults_intro" name="adults_intro" rows="3">{{ settings.adults_intro }}</textarea>
+      </div>
+      <div>
+        <label for="kids_intro">Intro for the kids &amp; parents page</label>
+        <textarea id="kids_intro" name="kids_intro" rows="3">{{ settings.kids_intro }}</textarea>
+      </div>
+      <div>
+        <label for="parent_child_note">Parent &amp; child class note</label>
+        <textarea id="parent_child_note" name="parent_child_note" rows="3">{{ settings.parent_child_note }}</textarea>
+      </div>
+      <div>
+        <label for="first_lesson_free_text">First-lesson-free line</label>
+        <input id="first_lesson_free_text" name="first_lesson_free_text" value="{{ settings.first_lesson_free_text }}">
+      </div>
+      <div>
+        <label for="contact_intro">Contact section intro</label>
+        <input id="contact_intro" name="contact_intro" value="{{ settings.contact_intro }}">
+      </div>
+      <div>
+        <label for="facebook_url">Facebook URL (leave blank to hide)</label>
+        <input id="facebook_url" name="facebook_url" value="{{ settings.facebook_url }}">
+      </div>
+      <div>
+        <label for="instagram_url">Instagram URL (leave blank to hide)</label>
+        <input id="instagram_url" name="instagram_url" value="{{ settings.instagram_url }}">
+      </div>
+      <button class="btn" type="submit">Save profile</button>
+    </form>
+  </section>
+
+  <section class="admin-section" id="packages">
+    <h2>Packages</h2>
+    <p class="intro">These show up, in this order, on the homepage and both track pages.</p>
+    {% for p in packages %}
+    <form method="post" action="{{ url_for('admin_packages_item', item_id=p.id) }}" class="admin-item {{ 'inactive' if not p.active }}">
+      <div class="admin-item-row">
+        <input name="title" value="{{ p.title }}" placeholder="Title">
+        {% if not p.active %}<span class="tag">Hidden</span>{% endif %}
+      </div>
+      <label>Short summary (always visible)</label>
+      <textarea name="summary" rows="2">{{ p.summary }}</textarea>
+      <label>Details (shown when expanded)</label>
+      <textarea name="details" rows="3">{{ p.details }}</textarea>
+      <div class="admin-item-actions">
+        <button class="btn ghost" name="action" value="save">Save</button>
+        <button class="btn ghost" name="action" value="up">&uarr; Move up</button>
+        <button class="btn ghost" name="action" value="down">&darr; Move down</button>
+        <button class="btn ghost" name="action" value="toggle">{{ 'Show' if not p.active else 'Hide' }}</button>
+        <button class="btn ghost danger" name="action" value="delete" onclick="return confirm('Remove this package for good?');">Remove</button>
+      </div>
+    </form>
+    {% endfor %}
+
+    <form method="post" action="{{ url_for('admin_packages_add') }}" class="admin-item admin-item-new">
+      <div class="admin-item-row"><strong>Add a new package</strong></div>
+      <label>Title</label>
+      <input name="title" required>
+      <label>Short summary</label>
+      <textarea name="summary" rows="2" required></textarea>
+      <label>Details</label>
+      <textarea name="details" rows="3"></textarea>
+      <button class="btn" type="submit">Add package</button>
+    </form>
+  </section>
+
+  <section class="admin-section" id="testimonials">
+    <h2>Testimonials</h2>
+    <p class="intro">Quotes from students or parents. Hidden ones won't show on the site but stay here for later.</p>
+    {% for t in testimonials %}
+    <form method="post" action="{{ url_for('admin_testimonials_item', item_id=t.id) }}" class="admin-item {{ 'inactive' if not t.active }}">
+      <div class="admin-item-row">{% if not t.active %}<span class="tag">Hidden</span>{% endif %}</div>
+      <label>Quote</label>
+      <textarea name="quote" rows="2">{{ t.quote }}</textarea>
+      <label>Author</label>
+      <input name="author" value="{{ t.author }}">
+      <label>Context (optional, e.g. "Parent of a 9-year-old")</label>
+      <input name="context" value="{{ t.context }}">
+      <div class="admin-item-actions">
+        <button class="btn ghost" name="action" value="save">Save</button>
+        <button class="btn ghost" name="action" value="up">&uarr; Move up</button>
+        <button class="btn ghost" name="action" value="down">&darr; Move down</button>
+        <button class="btn ghost" name="action" value="toggle">{{ 'Show' if not t.active else 'Hide' }}</button>
+        <button class="btn ghost danger" name="action" value="delete" onclick="return confirm('Remove this testimonial for good?');">Remove</button>
+      </div>
+    </form>
+    {% endfor %}
+
+    <form method="post" action="{{ url_for('admin_testimonials_add') }}" class="admin-item admin-item-new">
+      <div class="admin-item-row"><strong>Add a testimonial</strong></div>
+      <label>Quote</label>
+      <textarea name="quote" rows="2" required></textarea>
+      <label>Author</label>
+      <input name="author" required>
+      <label>Context (optional)</label>
+      <input name="context">
+      <button class="btn" type="submit">Add testimonial</button>
+    </form>
+  </section>
+
+  <section class="admin-section" id="faqs">
+    <h2>FAQ</h2>
+    {% for f in faqs %}
+    <form method="post" action="{{ url_for('admin_faqs_item', item_id=f.id) }}" class="admin-item {{ 'inactive' if not f.active }}">
+      <div class="admin-item-row">{% if not f.active %}<span class="tag">Hidden</span>{% endif %}</div>
+      <label>Question</label>
+      <input name="question" value="{{ f.question }}">
+      <label>Answer</label>
+      <textarea name="answer" rows="3">{{ f.answer }}</textarea>
+      <div class="admin-item-actions">
+        <button class="btn ghost" name="action" value="save">Save</button>
+        <button class="btn ghost" name="action" value="up">&uarr; Move up</button>
+        <button class="btn ghost" name="action" value="down">&darr; Move down</button>
+        <button class="btn ghost" name="action" value="toggle">{{ 'Show' if not f.active else 'Hide' }}</button>
+        <button class="btn ghost danger" name="action" value="delete" onclick="return confirm('Remove this question for good?');">Remove</button>
+      </div>
+    </form>
+    {% endfor %}
+
+    <form method="post" action="{{ url_for('admin_faqs_add') }}" class="admin-item admin-item-new">
+      <div class="admin-item-row"><strong>Add a question</strong></div>
+      <label>Question</label>
+      <input name="question" required>
+      <label>Answer</label>
+      <textarea name="answer" rows="3" required></textarea>
+      <button class="btn" type="submit">Add question</button>
+    </form>
+  </section>
+
+  <section class="admin-section" id="inquiries">
+    <h2>Inquiries</h2>
+    <p class="intro">Messages people send through the contact form land here.</p>
+    {% if not inquiries %}
+    <p class="empty-note">Nothing yet.</p>
+    {% endif %}
+    {% for i in inquiries %}
+    <div class="admin-item {{ 'inactive' if i.is_read }}">
+      <div class="admin-item-row">
+        <strong>{{ i.name }}</strong>
+        <span class="tag">{{ i.track }}</span>
+        {% if not i.is_read %}<span class="tag new">New</span>{% endif %}
+        <span class="muted" style="margin-left:auto;">{{ i.created_at[:16].replace('T', ' ') }}</span>
+      </div>
+      <p><a href="mailto:{{ i.email }}">{{ i.email }}</a></p>
+      <p style="white-space:pre-line;">{{ i.message }}</p>
+      <form method="post" action="{{ url_for('admin_inquiries_item', item_id=i.id) }}" class="admin-item-actions">
+        {% if not i.is_read %}<button class="btn ghost" name="action" value="read">Mark read</button>{% endif %}
+        <button class="btn ghost danger" name="action" value="delete" onclick="return confirm('Delete this message?');">Delete</button>
+      </form>
+    </div>
+    {% endfor %}
+  </section>
+
+  </div>
+</body>
+</html>

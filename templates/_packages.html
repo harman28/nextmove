@@ -1,0 +1,12 @@
+<div class="packages-list">
+  {% for p in packages %}
+  <details class="package">
+    <summary>
+      <span>{{ p.title }}</span>
+      <span class="chevron">+</span>
+    </summary>
+    <p class="package-summary-text">{{ p.summary }}</p>
+    {% if p.details %}<div class="package-details">{{ p.details }}</div>{% endif %}
+  </details>
+  {% endfor %}
+</div>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ settings.coach_name }} &middot; Next Move Chess{% endblock %}</title>
+<meta name="description" content="{{ settings.tagline }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="{{ url_for('home') }}">Next Move</a>
+    <nav>
+      <a href="{{ url_for('home') }}" class="{{ 'active' if active_page == 'home' }}">Home</a>
+      <a href="{{ url_for('adults') }}" class="{{ 'active' if active_page == 'adults' }}">For Adults</a>
+      <a href="{{ url_for('kids') }}" class="{{ 'active' if active_page == 'kids' }}">For Kids &amp; Parents</a>
+      <a href="{{ url_for('home') }}#contact" class="nav-cta">Get in touch</a>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-row">
+      <span class="wordmark">Next Move</span>
+      <span class="muted">Chess coaching with {{ settings.coach_name }}</span>
+    </div>
+    <div class="footer-row footer-links">
+      {% if settings.facebook_url %}<a href="{{ settings.facebook_url }}" target="_blank" rel="noopener">Facebook</a>{% endif %}
+      {% if settings.instagram_url %}<a href="{{ settings.instagram_url }}" target="_blank" rel="noopener">Instagram</a>{% endif %}
+      <a href="{{ url_for('home') }}#contact">Get in touch</a>
+    </div>
+  </footer>
+</body>
+</html>

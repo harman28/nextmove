@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="hero wrap">
+  <div class="hero-grid">
+    {% if settings.photo_filename %}
+      <img class="avatar" src="{{ url_for('uploads', filename=settings.photo_filename) }}?v={{ settings.photo_version }}" alt="{{ settings.coach_name }}">
+    {% else %}
+      <div class="avatar-placeholder">{{ settings.coach_name[0] }}</div>
+    {% endif %}
+    <div>
+      <span class="eyebrow">Chess coaching &middot; Next Move</span>
+      <h1>Chess coaching with {{ settings.coach_name }}</h1>
+      <p class="lede">{{ settings.tagline }}</p>
+      <div class="hero-actions">
+        <a class="btn" href="#contact">Get in touch</a>
+        <a class="btn ghost" href="#packages">See what's on offer</a>
+      </div>
+    </div>
+  </div>
+  <div class="free-banner"><b>First lesson, on the house.</b> {{ settings.first_lesson_free_text }}</div>
+</section>
+
+<section class="block" id="tracks">
+  <span class="eyebrow">Two ways to start</span>
+  <h2>Whichever one sounds like you.</h2>
+  <div class="tracks-grid">
+    <div class="track-card">
+      <h3>For adults</h3>
+      <p>{{ settings.adults_intro }}</p>
+      <a class="btn ghost" href="{{ url_for('adults') }}">For adult learners &rarr;</a>
+    </div>
+    <div class="track-card">
+      <h3>For kids &amp; parents</h3>
+      <p>{{ settings.kids_intro }}</p>
+      <a class="btn ghost" href="{{ url_for('kids') }}">For kids &amp; parents &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="packages">
+  <span class="eyebrow">Packages</span>
+  <h2>A few ways to work together.</h2>
+  <p class="intro">Tap any of these for more detail. There's no dedicated classroom yet, so once you're in touch, you and {{ settings.coach_name }} will work out what location or format makes sense.</p>
+  {% include "_packages.html" %}
+</section>
+
+<section class="block" id="why-me">
+  <span class="eyebrow">Why {{ settings.coach_name }}</span>
+  <h2>A bit about the coach.</h2>
+  <p class="intro" style="white-space:pre-line">{{ settings.bio_text }}</p>
+</section>
+
+{% if testimonials %}
+<section class="block" id="testimonials">
+  <span class="eyebrow">What students say</span>
+  <h2>Testimonials.</h2>
+  {% for t in testimonials %}
+  <div class="testimonial">
+    <p class="quote">&ldquo;{{ t.quote }}&rdquo;</p>
+    <p class="attribution">{{ t.author }}{% if t.context %} &middot; {{ t.context }}{% endif %}</p>
+  </div>
+  {% endfor %}
+</section>
+{% else %}
+<section class="block" id="testimonials">
+  <span class="eyebrow">What students say</span>
+  <h2>Testimonials.</h2>
+  <p class="empty-note">Testimonials will show up here as students share their experience.</p>
+</section>
+{% endif %}
+
+{% if faqs %}
+<section class="block" id="faq">
+  <span class="eyebrow">Questions</span>
+  <h2>Frequently asked.</h2>
+  <div class="faq-list">
+    {% for f in faqs %}
+    <details class="faq">
+      <summary><span>{{ f.question }}</span><span class="chevron">+</span></summary>
+      <p>{{ f.answer }}</p>
+    </details>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section class="block" id="contact">
+  <span class="eyebrow">Get in touch</span>
+  <h2>Tell {{ settings.coach_name }} a bit about you.</h2>
+  <p class="intro">{{ settings.contact_intro }}</p>
+
+  {% if sent == 'ok' %}
+  <p class="flash">Thanks &mdash; your message is in. {{ settings.coach_name }} will get back to you soon.</p>
+  {% elif sent == 'error' %}
+  <p class="flash error">Something's missing &mdash; please check your name, a valid email, and a short message, then try again.</p>
+  {% endif %}
+
+  <form class="contact-form" method="post" action="{{ url_for('contact') }}">
+    <input type="hidden" name="next" value="{{ url_for('home') }}">
+    <div>
+      <label for="f-name">Name</label>
+      <input id="f-name" name="name" type="text" required autocomplete="name">
+    </div>
+    <div>
+      <label for="f-email">Email</label>
+      <input id="f-email" name="email" type="email" required autocomplete="email">
+    </div>
+    <div>
+      <label for="f-track">This is about</label>
+      <select id="f-track" name="track">
+        <option value="general" {{ 'selected' if default_track == 'general' }}>Something else / not sure yet</option>
+        <option value="adults" {{ 'selected' if default_track == 'adults' }}>Coaching for myself (adult)</option>
+        <option value="kids" {{ 'selected' if default_track == 'kids' }}>Coaching for my child</option>
+        <option value="parent_child" {{ 'selected' if default_track == 'parent_child' }}>The parent &amp; child class idea</option>
+      </select>
+    </div>
+    <div>
+      <label for="f-message">Message</label>
+      <textarea id="f-message" name="message" required placeholder="A little about you (or your child), and what you're hoping to work on."></textarea>
+    </div>
+    <button class="btn" type="submit" style="justify-self:start">Send message</button>
+  </form>
+</section>
+
+{% endblock %}

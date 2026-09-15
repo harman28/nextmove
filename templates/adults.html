@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}For Adults &middot; Next Move Chess{% endblock %}
+{% block content %}
+
+<section class="hero wrap">
+  <span class="eyebrow">For adults</span>
+  <h1>Ready to get serious about chess.</h1>
+  <p class="lede" style="white-space:pre-line">{{ settings.adults_intro }}</p>
+  <div class="free-banner"><b>First lesson, on the house.</b> {{ settings.first_lesson_free_text }}</div>
+  <div class="hero-actions">
+    <a class="btn" href="{{ url_for('home', track='adults') }}#contact">Get in touch</a>
+    <a class="btn ghost" href="#packages">See packages</a>
+  </div>
+</section>
+
+<section class="block" id="packages">
+  <span class="eyebrow">Packages</span>
+  <h2>A few ways to work together.</h2>
+  <p class="intro">Tap any of these for more detail.</p>
+  {% include "_packages.html" %}
+</section>
+
+<section class="block">
+  <span class="eyebrow">One on one</span>
+  <h2>Private coaching is where {{ settings.coach_name }} does his best work.</h2>
+  <p class="intro">Lessons are shaped entirely around you &mdash; your level, your pace, and whatever you're actually stuck on.</p>
+  <a class="btn" href="{{ url_for('home', track='adults') }}#contact">Get in touch</a>
+</section>
+
+{% endblock %}

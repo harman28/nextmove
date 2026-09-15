@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}For Kids &amp; Parents &middot; Next Move Chess{% endblock %}
+{% block content %}
+
+<section class="hero wrap">
+  <span class="eyebrow">For kids &amp; parents</span>
+  <h1>Help your child take up chess &mdash; or get properly better at it.</h1>
+  <p class="lede" style="white-space:pre-line">{{ settings.kids_intro }}</p>
+  <div class="free-banner"><b>First lesson, on the house.</b> {{ settings.first_lesson_free_text }}</div>
+  <div class="hero-actions">
+    <a class="btn" href="{{ url_for('home', track='kids') }}#contact">Get in touch</a>
+    <a class="btn ghost" href="#packages">See packages</a>
+  </div>
+</section>
+
+<section class="block" id="packages">
+  <span class="eyebrow">Packages</span>
+  <h2>A few ways to work together.</h2>
+  <p class="intro">Tap any of these for more detail.</p>
+  {% include "_packages.html" %}
+</section>
+
+<section class="block" id="parent-child">
+  <span class="eyebrow">New idea</span>
+  <h2>Parent &amp; child, learning together.</h2>
+  <p class="intro">{{ settings.parent_child_note }}</p>
+  <a class="btn ghost" href="{{ url_for('home', track='parent_child') }}#contact">I'm interested &rarr;</a>
+</section>
+
+{% endblock %}

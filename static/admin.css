@@ -1,0 +1,69 @@
+.admin-topbar {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: wrap;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper-raised);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+.admin-tabs { display: flex; gap: 18px; flex-wrap: wrap; margin-left: auto; }
+.admin-tabs a { color: var(--ink-soft); text-decoration: none; font-size: 0.92rem; }
+.admin-wrap { max-width: 760px; padding-block: 40px 80px; }
+
+.admin-section { padding-block: 40px; border-bottom: 1px solid var(--line); scroll-margin-top: 80px; }
+.admin-section h2 { font-size: 1.4rem; }
+.admin-section .intro { margin-top: 8px; max-width: 60ch; }
+
+.admin-photo-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 24px 0;
+  flex-wrap: wrap;
+}
+.admin-photo-row form { display: flex; align-items: end; gap: 10px; flex-wrap: wrap; }
+.admin-photo-row label { margin: 0; }
+
+.admin-form { display: grid; gap: 16px; margin-top: 20px; max-width: 620px; }
+.admin-form label { margin-bottom: 6px; }
+
+.admin-item {
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 18px;
+  margin-top: 16px;
+  background: var(--paper-raised);
+  display: grid;
+  gap: 10px;
+}
+.admin-item.inactive { opacity: 0.55; }
+.admin-item-new { border-style: dashed; }
+.admin-item label { margin-bottom: 2px; font-size: 0.8rem; color: var(--muted); }
+.admin-item-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.admin-item-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+.admin-item-actions .btn { padding: 8px 14px; font-size: 0.85rem; }
+.btn.danger { border-color: #b23b3b; color: #b23b3b; }
+
+.tag {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 10px;
+  color: var(--muted);
+}
+.tag.new { border-color: var(--accent-deep); color: var(--accent-deep); }
+.badge {
+  background: var(--accent);
+  color: #23180a;
+  border-radius: 999px;
+  padding: 1px 7px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
