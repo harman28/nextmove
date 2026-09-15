@@ -82,6 +82,14 @@ p { color: var(--ink-soft); }
   color: var(--ink);
   text-decoration: none;
 }
+.wordmark-piece {
+  font-style: normal;
+  color: var(--accent-deep);
+  margin-right: 6px;
+  font-size: 1.15em;
+  vertical-align: -0.05em;
+  display: inline-block;
+}
 .site-header nav { display: flex; gap: 22px; align-items: center; flex-wrap: wrap; }
 .site-header nav a {
   color: var(--ink-soft);
@@ -116,8 +124,29 @@ p { color: var(--ink-soft); }
 
 /* hero */
 .hero {
+  position: relative;
   padding-block: 56px 48px;
   border-bottom: 1px solid var(--line);
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(45deg, color-mix(in srgb, var(--line) 65%, transparent) 25%, transparent 25%),
+    linear-gradient(-45deg, color-mix(in srgb, var(--line) 65%, transparent) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, color-mix(in srgb, var(--line) 65%, transparent) 75%),
+    linear-gradient(-45deg, transparent 75%, color-mix(in srgb, var(--line) 65%, transparent) 75%);
+  background-size: 34px 34px;
+  background-position: 0 0, 0 17px, 17px -17px, -17px 0;
+  -webkit-mask-image: linear-gradient(to bottom, black, transparent 85%);
+  mask-image: linear-gradient(to bottom, black, transparent 85%);
+}
+.hero-grid, .hero > .free-banner {
+  position: relative;
+  z-index: 1;
 }
 .hero-grid {
   display: grid;
@@ -201,6 +230,12 @@ details.package summary {
   color: var(--ink);
 }
 details.package summary::-webkit-details-marker { display: none; }
+.piece-bullet {
+  color: var(--accent-deep);
+  margin-right: 10px;
+  font-size: 1.1em;
+  display: inline-block;
+}
 details.package summary .chevron {
   font-family: "IBM Plex Mono", monospace;
   color: var(--accent-deep);
