@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{% block title %}{{ settings.coach_name }} &middot; Next Move Chess{% endblock %}</title>
 <meta name="description" content="{{ settings.tagline }}">
+<link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -12,7 +13,7 @@
 </head>
 <body>
   <header class="site-header">
-    <a class="wordmark" href="{{ url_for('home') }}">Next Move</a>
+    <a class="wordmark" href="{{ url_for('home') }}"><span class="wordmark-piece" aria-hidden="true">&#9822;</span>Next Move</a>
     <nav>
       <a href="{{ url_for('home') }}" class="{{ 'active' if active_page == 'home' }}">Home</a>
       <a href="{{ url_for('adults') }}" class="{{ 'active' if active_page == 'adults' }}">For Adults</a>
@@ -27,7 +28,7 @@
 
   <footer class="site-footer">
     <div class="footer-row">
-      <span class="wordmark">Next Move</span>
+      <span class="wordmark"><span class="wordmark-piece" aria-hidden="true">&#9822;</span>Next Move</span>
       <span class="muted">Chess coaching with {{ settings.coach_name }}</span>
     </div>
     <div class="footer-row footer-links">

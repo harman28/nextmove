@@ -1,8 +1,9 @@
 <div class="packages-list">
+  {% set pieces = ['&#9822;', '&#9821;', '&#9820;', '&#9823;'] %}
   {% for p in packages %}
   <details class="package">
     <summary>
-      <span>{{ p.title }}</span>
+      <span><span class="piece-bullet" aria-hidden="true">{{ pieces[loop.index0 % pieces|length]|safe }}</span>{{ p.title }}</span>
       <span class="chevron">+</span>
     </summary>
     <p class="package-summary-text">{{ p.summary }}</p>
