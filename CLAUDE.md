@@ -99,6 +99,28 @@ DATA_DIR=./data ADMIN_PASSWORD=devpassword PORT=5400 python3 app.py
 
 ## Deployment
 
-Railway, `web: python3 app.py` (`Procfile`) — deploys from `main`. Needs a volume mounted
-wherever `DATA_DIR` points (see "Real runtime data" above) and `ADMIN_PASSWORD` /
-`SECRET_KEY` set as env vars, never committed.
+Railway project `nextmove` (id `82e460d8-abe2-48df-abc4-db7e74a7a690`), two services in the
+same `production` environment, same pattern as `chess-library-api`'s staging setup:
+
+- **`nextmove`** — deploys from `main`. Live at
+  `https://nextmove-production-39bd.up.railway.app`. This is the real site.
+- **`nextmove-staging`** — deploys from `staging`. Live at
+  `https://nextmove-staging-production.up.railway.app`. Push feature work to `staging`
+  first, verify it there, then merge `staging` into `main` and push to go live. Feature
+  branches merge into `staging`, never straight into `main`.
+
+Both services have their own volume mounted at `/data` (so staging and prod each have
+their own separate database and uploaded photo — unlike `chess-library-api`'s staging,
+which deliberately shares prod's Postgres, these two are fully isolated) and their own
+`DATA_DIR=/data`, `ADMIN_PASSWORD`, and `SECRET_KEY` (each service has a distinct
+generated `SECRET_KEY`; `ADMIN_PASSWORD` was set to the same value on both when this was
+built — change it independently per service if that separation ever matters).
+
+`railway volume add` (the CLI subcommand) panics on this CLI version
+(`volume.rs:836`, `Option::unwrap() on a None value`) — both interactively and with
+`--json`, regardless of flag order. Worked around by calling the `volumeCreate` GraphQL
+mutation directly via `railway api` instead (see git history around the initial deploy for
+the exact command). If a volume ever needs recreating, try the CLI subcommand first in case
+it's been fixed upstream; fall back to the raw mutation if it still panics.
+
+`nextmovechess.nl` is not yet purchased — see "Known gaps" above.
