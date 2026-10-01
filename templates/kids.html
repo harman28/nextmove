@@ -4,7 +4,7 @@
 
 <section class="hero wrap">
   <span class="eyebrow">For kids &amp; parents</span>
-  <h1>Help your child take up chess &mdash; or get properly better at it.</h1>
+  <h1>{{ settings.kids_headline }}</h1>
   <p class="lede" style="white-space:pre-line">{{ settings.kids_intro }}</p>
   <div class="free-banner"><b>First lesson, on the house.</b> {{ settings.first_lesson_free_text }}</div>
   <div class="hero-actions">
@@ -22,7 +22,7 @@
 
 <section class="block" id="parent-child">
   <span class="eyebrow">New idea</span>
-  <h2>Parent &amp; child, learning together.</h2>
+  <h2>{{ settings.kids_parent_child_heading }}</h2>
   <p class="intro">{{ settings.parent_child_note }}</p>
   <a class="btn ghost" href="{{ url_for('home', track='parent_child') }}#contact">I'm interested &rarr;</a>
 </section>

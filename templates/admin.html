@@ -58,20 +58,40 @@
         <textarea id="bio_text" name="bio_text" rows="5">{{ settings.bio_text }}</textarea>
       </div>
       <div>
-        <label for="adults_intro">Intro for the adults page</label>
+        <label for="first_lesson_free_text">First-lesson-free line</label>
+        <input id="first_lesson_free_text" name="first_lesson_free_text" value="{{ settings.first_lesson_free_text }}">
+      </div>
+
+      <h3 class="admin-subhead">"For Adults" page (/adults)</h3>
+      <div>
+        <label for="adults_headline">Headline</label>
+        <input id="adults_headline" name="adults_headline" value="{{ settings.adults_headline }}">
+      </div>
+      <div>
+        <label for="adults_intro">Intro paragraph</label>
         <textarea id="adults_intro" name="adults_intro" rows="3">{{ settings.adults_intro }}</textarea>
       </div>
       <div>
-        <label for="kids_intro">Intro for the kids &amp; parents page</label>
+        <label for="adults_closing_text">Closing paragraph ("One on one" section)</label>
+        <textarea id="adults_closing_text" name="adults_closing_text" rows="3">{{ settings.adults_closing_text }}</textarea>
+      </div>
+
+      <h3 class="admin-subhead">"For Kids &amp; Parents" page (/kids)</h3>
+      <div>
+        <label for="kids_headline">Headline</label>
+        <input id="kids_headline" name="kids_headline" value="{{ settings.kids_headline }}">
+      </div>
+      <div>
+        <label for="kids_intro">Intro paragraph</label>
         <textarea id="kids_intro" name="kids_intro" rows="3">{{ settings.kids_intro }}</textarea>
       </div>
       <div>
-        <label for="parent_child_note">Parent &amp; child class note</label>
-        <textarea id="parent_child_note" name="parent_child_note" rows="3">{{ settings.parent_child_note }}</textarea>
+        <label for="kids_parent_child_heading">Parent &amp; child section heading</label>
+        <input id="kids_parent_child_heading" name="kids_parent_child_heading" value="{{ settings.kids_parent_child_heading }}">
       </div>
       <div>
-        <label for="first_lesson_free_text">First-lesson-free line</label>
-        <input id="first_lesson_free_text" name="first_lesson_free_text" value="{{ settings.first_lesson_free_text }}">
+        <label for="parent_child_note">Parent &amp; child section text</label>
+        <textarea id="parent_child_note" name="parent_child_note" rows="3">{{ settings.parent_child_note }}</textarea>
       </div>
       <div>
         <label for="contact_intro">Contact section intro</label>

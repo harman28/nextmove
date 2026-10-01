@@ -29,6 +29,13 @@
 .admin-photo-row label { margin: 0; }
 
 .admin-form { display: grid; gap: 16px; margin-top: 20px; max-width: 620px; }
+.admin-subhead {
+  font-size: 0.95rem;
+  margin-top: 12px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--line);
+  color: var(--accent-deep);
+}
 .admin-form label { margin-bottom: 6px; }
 
 .admin-item {
