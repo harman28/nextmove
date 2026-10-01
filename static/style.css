@@ -220,6 +220,11 @@ details.package {
 details.package summary {
   list-style: none;
   cursor: pointer;
+  display: block;
+}
+details.package summary::-webkit-details-marker { display: none; }
+details.package summary::marker { content: ""; }
+.package-title-row {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -229,7 +234,6 @@ details.package summary {
   font-weight: 600;
   color: var(--ink);
 }
-details.package summary::-webkit-details-marker { display: none; }
 .piece-bullet {
   color: var(--accent-deep);
   margin-right: 10px;

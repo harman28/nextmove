@@ -30,7 +30,11 @@ DEFAULT_SETTINGS = {
     "photo_filename": "",
     "photo_version": "0",
     "adults_intro": "[Write a short intro here for adults who want to get serious about chess and could use some guidance.]",
+    "adults_headline": "Ready to get serious about chess.",
+    "adults_closing_text": "Lessons are shaped entirely around you — your level, your pace, and whatever you're actually stuck on.",
     "kids_intro": "[Write a short intro here for parents who want their kids to take up chess or get better at it.]",
+    "kids_headline": "Help your child take up chess — or get properly better at it.",
+    "kids_parent_child_heading": "Parent & child, learning together.",
     "parent_child_note": "Akos is exploring a class for parents and kids to learn together — it hasn’t been tried yet, so get in touch if that sounds interesting and he’ll keep you posted.",
     "first_lesson_free_text": "Your first private lesson is free — a low-pressure way to see if it’s a good fit.",
     "contact_intro": "[Add a short line here inviting people to reach out.]",
@@ -313,7 +317,9 @@ def admin_settings():
         return guard
     db = get_db()
     fields = [
-        "coach_name", "tagline", "bio_text", "adults_intro", "kids_intro",
+        "coach_name", "tagline", "bio_text",
+        "adults_intro", "adults_headline", "adults_closing_text",
+        "kids_intro", "kids_headline", "kids_parent_child_heading",
         "parent_child_note", "first_lesson_free_text", "contact_intro",
         "facebook_url", "instagram_url",
     ]

@@ -3,10 +3,12 @@
   {% for p in packages %}
   <details class="package">
     <summary>
-      <span><span class="piece-bullet" aria-hidden="true">{{ pieces[loop.index0 % pieces|length]|safe }}</span>{{ p.title }}</span>
-      <span class="chevron">+</span>
+      <span class="package-title-row">
+        <span><span class="piece-bullet" aria-hidden="true">{{ pieces[loop.index0 % pieces|length]|safe }}</span>{{ p.title }}</span>
+        <span class="chevron">+</span>
+      </span>
+      <p class="package-summary-text">{{ p.summary }}</p>
     </summary>
-    <p class="package-summary-text">{{ p.summary }}</p>
     {% if p.details %}<div class="package-details">{{ p.details }}</div>{% endif %}
   </details>
   {% endfor %}
