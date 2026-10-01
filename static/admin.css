@@ -68,7 +68,7 @@
 .tag.new { border-color: var(--accent-deep); color: var(--accent-deep); }
 .badge {
   background: var(--accent);
-  color: #23180a;
+  color: var(--accent-ink);
   border-radius: 999px;
   padding: 1px 7px;
   font-size: 0.72rem;

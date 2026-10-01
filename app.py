@@ -24,7 +24,7 @@ app.secret_key = os.environ.get("SECRET_KEY", "dev-only-insecure-key")
 os.makedirs(UPLOADS_DIR, exist_ok=True)
 
 DEFAULT_SETTINGS = {
-    "coach_name": "Akos",
+    "coach_name": "Ákos",
     "tagline": "[Add a short tagline here — a line that sums up your coaching in one sentence.]",
     "bio_text": "[This is your “why me”. Write a few sentences here about why you coach chess and what students can expect from working with you.]",
     "photo_filename": "",
@@ -35,7 +35,7 @@ DEFAULT_SETTINGS = {
     "kids_intro": "[Write a short intro here for parents who want their kids to take up chess or get better at it.]",
     "kids_headline": "Help your child take up chess — or get properly better at it.",
     "kids_parent_child_heading": "Parent & child, learning together.",
-    "parent_child_note": "Akos is exploring a class for parents and kids to learn together — it hasn’t been tried yet, so get in touch if that sounds interesting and he’ll keep you posted.",
+    "parent_child_note": "Ákos is exploring a class for parents and kids to learn together — it hasn’t been tried yet, so get in touch if that sounds interesting and he’ll keep you posted.",
     "first_lesson_free_text": "Your first private lesson is free — a low-pressure way to see if it’s a good fit.",
     "contact_intro": "[Add a short line here inviting people to reach out.]",
     "facebook_url": "",
@@ -50,7 +50,7 @@ DEFAULT_PACKAGES = [
     ),
     (
         "Play Your First Tournament",
-        "Akos guides you step by step, all the way to your first tournament.",
+        "Ákos guides you step by step, all the way to your first tournament.",
         "[Add more detail here: how many sessions this includes and what it covers.]",
     ),
     (
@@ -63,15 +63,15 @@ DEFAULT_PACKAGES = [
 DEFAULT_FAQS = [
     (
         "Is the first lesson really free?",
-        "Yes — your first private lesson with Akos is free, so you can see if it’s the right fit before committing to anything.",
+        "Yes — your first private lesson with Ákos is free, so you can see if it’s the right fit before committing to anything.",
     ),
     (
         "Where do lessons take place?",
-        "There’s no fixed location yet. Once you get in touch, you and Akos will figure out what works best — online or in person.",
+        "There’s no fixed location yet. Once you get in touch, you and Ákos will figure out what works best — online or in person.",
     ),
     (
         "Do you teach both kids and adults?",
-        "Yes. Akos particularly enjoys one-on-one coaching, where lessons are shaped entirely around the student, whatever their age.",
+        "Yes. Ákos particularly enjoys one-on-one coaching, where lessons are shaped entirely around the student, whatever their age.",
     ),
 ]
 
